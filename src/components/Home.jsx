@@ -68,14 +68,13 @@ export default function Home({ onSelectQuiz }) {
   return (
     <div className="home">
       <section className="hero-block">
-        <span className="eyebrow">4択・ローカル採点</span>
         <h1 className="hero-title">
           問題集を選んで
           <br />
           マークしよう
         </h1>
         <p className="hero-sub">
-          プリセットから選ぶか、自分のJSONファイルを読み込んで出題できます。登録は不要です。
+          プリセットから選ぶか、自分のJSONファイルを読み込んで出題できます。
         </p>
       </section>
 

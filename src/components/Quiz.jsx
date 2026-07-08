@@ -24,15 +24,23 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
   const [sessionAnswered, setSessionAnswered] = useState(0);
   const [liveStats, setLiveStats] = useState(() => getStats(quiz.id));
 
+  const { shuffledChoices, shuffledAnswer } = useMemo(() => {
+    const indices = shuffle([0, 1, 2, 3].slice(0, current.choices.length));
+    return {
+      shuffledChoices: indices.map((i) => current.choices[i]),
+      shuffledAnswer: indices.indexOf(current.answer),
+    };
+  }, [current]);
+
   const answered = selected !== null;
-  const isCorrect = answered && selected === current.answer;
+  const isCorrect = answered && selected === shuffledAnswer;
 
   const sessionAccuracy = sessionAnswered ? sessionCorrect / sessionAnswered : null;
   const recentAcc = isUnlimited ? recentAccuracy(liveStats) : null;
 
   function handleSelect(choiceIdx) {
     if (answered) return;
-    const correct = choiceIdx === current.answer;
+    const correct = choiceIdx === shuffledAnswer;
     setSelected(choiceIdx);
     setRevealed(false);
     setSessionAnswered((n) => n + 1);
@@ -102,12 +110,12 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
         <h2 className="question-text">{current.question}</h2>
 
         <div className="choice-list">
-          {current.choices.map((choice, i) => {
+          {shuffledChoices.map((choice, i) => {
             let state = 'idle';
             if (answered) {
               if (i === selected && isCorrect) state = 'correct';
               else if (i === selected && !isCorrect) state = 'wrong';
-              else if (i === current.answer && revealed) state = 'correct';
+              else if (i === shuffledAnswer && revealed) state = 'correct';
             }
             return (
               <button
@@ -152,7 +160,7 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
             {!isCorrect && revealed && (
               <div className="answer-reveal">
                 <p>
-                  正解は <strong>{LETTERS[current.answer]}. {current.choices[current.answer]}</strong>
+                  正解は <strong>{LETTERS[shuffledAnswer]}. {shuffledChoices[shuffledAnswer]}</strong>
                 </p>
                 {current.explanation && <p className="explanation">{current.explanation}</p>}
               </div>
