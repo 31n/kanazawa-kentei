@@ -785,3 +785,64 @@ input:focus-visible,
     flex-direction: row;
   }
 }
+
+/* History list */
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 12px 14px;
+}
+
+.history-item.history-correct {
+  border-left: 3px solid var(--correct);
+}
+
+.history-item.history-wrong {
+  border-left: 3px solid var(--incorrect);
+}
+
+.history-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.history-correct .history-icon {
+  color: var(--correct);
+}
+
+.history-wrong .history-icon {
+  color: var(--incorrect);
+}
+
+.history-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.history-question {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.history-answer {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+}

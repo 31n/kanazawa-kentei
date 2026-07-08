@@ -83,6 +83,7 @@ export default function App() {
           mode={mode}
           sessionCorrect={result.sessionCorrect}
           sessionAnswered={result.sessionAnswered}
+          log={result.log ?? []}
           onRetry={handleRetry}
           onHome={handleHome}
         />

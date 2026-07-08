@@ -2,7 +2,7 @@ import Icon from './Icon.jsx';
 import BubbleGauge from './BubbleGauge.jsx';
 import { getStats, overallAccuracy, recentAccuracy } from '../utils/storage.js';
 
-export default function Result({ quiz, mode, sessionCorrect, sessionAnswered, onRetry, onHome }) {
+export default function Result({ quiz, mode, sessionCorrect, sessionAnswered, log = [], onRetry, onHome }) {
   const stats = getStats(quiz.id);
   const overall = overallAccuracy(stats);
   const recent = recentAccuracy(stats);
@@ -58,6 +58,29 @@ export default function Result({ quiz, mode, sessionCorrect, sessionAnswered, on
           問題集選択に戻る
         </button>
       </div>
+
+      {log.length > 0 && (
+        <section>
+          <h2 className="section-title">回答履歴</h2>
+          <ol className="history-list">
+            {log.map((entry, i) => (
+              <li key={i} className={`history-item ${entry.correct ? 'history-correct' : 'history-wrong'}`}>
+                <Icon
+                  name={entry.correct ? 'check_circle' : 'cancel'}
+                  size={18}
+                  className="history-icon"
+                />
+                <div className="history-body">
+                  <p className="history-question">{entry.question}</p>
+                  <p className="history-answer">
+                    正解：{entry.choices[entry.answer]}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
     </div>
   );
 }

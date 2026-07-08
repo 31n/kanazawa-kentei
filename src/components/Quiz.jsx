@@ -23,6 +23,7 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
   const [sessionCorrect, setSessionCorrect] = useState(0);
   const [sessionAnswered, setSessionAnswered] = useState(0);
   const [liveStats, setLiveStats] = useState(() => getStats(quiz.id));
+  const [log, setLog] = useState([]);
 
   const { shuffledChoices, shuffledAnswer } = useMemo(() => {
     const indices = shuffle([0, 1, 2, 3].slice(0, current.choices.length));
@@ -47,13 +48,23 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
     if (correct) setSessionCorrect((n) => n + 1);
     const updated = recordAnswer(quiz.id, correct, isUnlimited);
     setLiveStats(updated);
+    setLog((prev) => [
+      ...prev,
+      {
+        question: current.question,
+        choices: shuffledChoices,
+        answer: shuffledAnswer,
+        selected: choiceIdx,
+        correct,
+      },
+    ]);
   }
 
   function handleNext() {
     const nextServedCount = qIndex + 1;
 
     if (!isUnlimited && nextServedCount >= total) {
-      onFinish({ sessionCorrect, sessionAnswered });
+      onFinish({ sessionCorrect, sessionAnswered, log });
       return;
     }
 
@@ -69,7 +80,7 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
   }
 
   function handleFinishNow() {
-    onFinish({ sessionCorrect, sessionAnswered });
+    onFinish({ sessionCorrect, sessionAnswered, log });
   }
 
   return (
