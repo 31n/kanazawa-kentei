@@ -1,0 +1,14 @@
+[
+  {
+    "id": "sample-general",
+    "title": "サンプル：一般常識クイズ",
+    "description": "動作確認用のサンプル問題集です",
+    "file": "data/presets/sample-general.json"
+  },
+  {
+    "id": "fy2025-21st-beginner",
+    "title": "第21回金沢検定試験 初級",
+    "description": "2025年度（令和7年度）第21回金沢検定試験 初級（全100問）",
+    "file": "data/presets/fy2025-21st-beginner.json"
+  }
+]

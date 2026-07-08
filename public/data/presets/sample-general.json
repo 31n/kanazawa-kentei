@@ -1,0 +1,73 @@
+[
+  {
+    "id": "g001",
+    "question": "日本の首都はどこ？",
+    "choices": ["大阪", "京都", "東京", "名古屋"],
+    "answer": 2,
+    "category": "地理"
+  },
+  {
+    "id": "g002",
+    "question": "水の化学式はどれ？",
+    "choices": ["CO2", "H2O", "NaCl", "O2"],
+    "answer": 1,
+    "category": "理科"
+  },
+  {
+    "id": "g003",
+    "question": "1年は何日？（うるう年を除く）",
+    "choices": ["360日", "364日", "365日", "366日"],
+    "answer": 2,
+    "category": "一般"
+  },
+  {
+    "id": "g004",
+    "question": "世界で一番広い大陸は？",
+    "choices": ["アフリカ", "北アメリカ", "ユーラシア", "南極"],
+    "answer": 2,
+    "category": "地理"
+  },
+  {
+    "id": "g005",
+    "question": "光の三原色に含まれないものは？",
+    "choices": ["赤", "緑", "青", "黄"],
+    "answer": 3,
+    "category": "理科",
+    "explanation": "光の三原色は赤・緑・青（RGB）。黄は色の三原色（CMY）側の要素。"
+  },
+  {
+    "id": "g006",
+    "question": "日本の国花とされる花は？",
+    "choices": ["チューリップ", "桜", "バラ", "ひまわり"],
+    "answer": 1,
+    "category": "文化"
+  },
+  {
+    "id": "g007",
+    "question": "1ダースはいくつ？",
+    "choices": ["10", "12", "15", "20"],
+    "answer": 1,
+    "category": "一般"
+  },
+  {
+    "id": "g008",
+    "question": "human bodyの骨の数は成人でおよそ何本？",
+    "choices": ["106本", "156本", "206本", "256本"],
+    "answer": 2,
+    "category": "理科"
+  },
+  {
+    "id": "g009",
+    "question": "太陽系で最も大きい惑星は？",
+    "choices": ["土星", "木星", "海王星", "地球"],
+    "answer": 1,
+    "category": "理科"
+  },
+  {
+    "id": "g010",
+    "question": "オリンピックが開催される間隔は？",
+    "choices": ["2年", "3年", "4年", "5年"],
+    "answer": 2,
+    "category": "一般"
+  }
+]
