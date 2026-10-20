@@ -13,7 +13,7 @@ const ORDER_OPTIONS = [
   { value: 'sequential', label: '問題順', icon: 'format_list_numbered' },
 ];
 
-export default function Setup({ quiz, onStart, onBack }) {
+export default function Setup({ quiz, onStart, onShowList, onBack }) {
   const [order, setOrder] = useState('random');
   const total = quiz.questions.length;
   const options = BASE_OPTIONS.filter((opt) => typeof opt.value !== 'number' || opt.value <= total);
@@ -62,6 +62,11 @@ export default function Setup({ quiz, onStart, onBack }) {
           </button>
         ))}
       </div>
+
+      <button className="btn btn-secondary" onClick={onShowList}>
+        <Icon name="list" size={18} />
+        問題の一覧を見る
+      </button>
     </div>
   );
 }

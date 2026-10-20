@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Icon from './components/Icon.jsx';
 import Home from './components/Home.jsx';
 import Setup from './components/Setup.jsx';
+import QuestionList from './components/QuestionList.jsx';
 import Quiz from './components/Quiz.jsx';
 import Result from './components/Result.jsx';
 
@@ -66,7 +67,16 @@ export default function App() {
       {screen === 'home' && <Home onSelectQuiz={handleSelectQuiz} />}
 
       {screen === 'setup' && quiz && (
-        <Setup quiz={quiz} onStart={handleStart} onBack={() => setScreen('home')} />
+        <Setup
+          quiz={quiz}
+          onStart={handleStart}
+          onShowList={() => setScreen('list')}
+          onBack={() => setScreen('home')}
+        />
+      )}
+
+      {screen === 'list' && quiz && (
+        <QuestionList quiz={quiz} onBack={() => setScreen('setup')} />
       )}
 
       {screen === 'quiz' && quiz && mode && (
