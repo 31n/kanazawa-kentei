@@ -6,6 +6,7 @@ const LETTERS = ['A', 'B', 'C', 'D'];
 
 export default function QuestionList({ quiz, onBack }) {
   const [shownAnswers, setShownAnswers] = useState(() => new Set());
+  const [picked, setPicked] = useState(() => new Map());
   const [showChoices, setShowChoices] = useState(false);
   const [shownExplanations, setShownExplanations] = useState(() => new Set());
 
@@ -14,6 +15,21 @@ export default function QuestionList({ quiz, onBack }) {
       const next = new Set(prev);
       if (next.has(index)) next.delete(index);
       else next.add(index);
+      return next;
+    });
+  }
+
+  function pickChoice(index, choiceIdx) {
+    setPicked((prev) => new Map(prev).set(index, choiceIdx));
+    setShownAnswers((prev) => new Set(prev).add(index));
+  }
+
+  function toggleAnswer(index) {
+    toggle(setShownAnswers, index);
+    setPicked((prev) => {
+      if (!prev.has(index)) return prev;
+      const next = new Map(prev);
+      next.delete(index);
       return next;
     });
   }
@@ -28,7 +44,7 @@ export default function QuestionList({ quiz, onBack }) {
       <div className="setup-header">
         <span className="eyebrow">問題の一覧</span>
         <h1 className="hero-title">{quiz.title}</h1>
-        <p className="hero-sub">回答はタップで表示されます。</p>
+        <p className="hero-sub">回答はタップで表示されます。選択肢表示モードでは、選択肢をタップして答え合わせもできます。</p>
       </div>
 
       <label className="check-row">
@@ -52,12 +68,21 @@ export default function QuestionList({ quiz, onBack }) {
               {showChoices && (
                 <ul className="question-item-choices">
                   {q.choices.map((choice, ci) => (
-                    <li
-                      key={ci}
-                      className={answerShown && ci === q.answer ? 'is-answer' : undefined}
-                    >
-                      <span className="choice-letter">{LETTERS[ci]}</span>
-                      <span>{choice}</span>
+                    <li key={ci}>
+                      <button
+                        type="button"
+                        className={`list-choice${
+                          answerShown && ci === q.answer
+                            ? ' is-answer'
+                            : picked.get(i) === ci
+                              ? ' is-wrong'
+                              : ''
+                        }`}
+                        onClick={() => pickChoice(i, ci)}
+                      >
+                        <span className="choice-letter">{LETTERS[ci]}</span>
+                        <span>{choice}</span>
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -67,7 +92,7 @@ export default function QuestionList({ quiz, onBack }) {
                 <button
                   type="button"
                   className={`answer-chip${answerShown ? ' is-shown' : ''}`}
-                  onClick={() => toggle(setShownAnswers, i)}
+                  onClick={() => toggleAnswer(i)}
                   aria-label={answerShown ? '回答を隠す' : '回答を表示'}
                 >
                   {answerShown ? q.choices[q.answer] : 'タップで表示'}

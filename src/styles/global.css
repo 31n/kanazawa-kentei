@@ -810,21 +810,31 @@ input:focus-visible,
   gap: 6px;
 }
 
-.question-item-choices li {
+.list-choice {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
   padding: 8px 10px;
   border: 1px solid var(--line);
   border-radius: var(--radius-s);
+  background: transparent;
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.5;
+  text-align: left;
+  color: var(--ink);
 }
 
-.question-item-choices li.is-answer {
+.list-choice.is-answer {
   border-color: var(--correct);
   background: var(--correct-soft);
   font-weight: 600;
+}
+
+.list-choice.is-wrong {
+  border-color: var(--incorrect);
+  background: var(--incorrect-soft);
 }
 
 .question-item-answer-row {
