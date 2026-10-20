@@ -6,7 +6,8 @@
  *   choices: [string, string, string, string],
  *   answer: 0 | 1 | 2 | 3,
  *   category?: string,
- *   explanation?: string
+ *   explanation?: string,
+ *   basis?: { url?: string, text?: string }
  * }
  */
 export function validateQuizData(data) {

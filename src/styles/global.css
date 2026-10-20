@@ -696,6 +696,33 @@ input:focus-visible,
   color: var(--ink-soft);
 }
 
+.basis {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.basis-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.basis-text {
+  color: var(--ink-soft);
+}
+
+.basis-link {
+  align-self: flex-start;
+  width: auto;
+  padding: 8px 14px;
+  font-size: 13px;
+  text-decoration: none;
+}
+
 .next-btn {
   margin-top: 4px;
 }

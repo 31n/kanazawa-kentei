@@ -33,6 +33,9 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
     };
   }, [current]);
 
+  const basisText = typeof current.basis?.text === 'string' ? current.basis.text.trim() : '';
+  const basisUrl = /^https?:\/\//i.test(current.basis?.url ?? '') ? current.basis.url.trim() : '';
+
   const answered = selected !== null;
   const isCorrect = answered && selected === shuffledAnswer;
 
@@ -174,6 +177,23 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
                   正解は <strong>{LETTERS[shuffledAnswer]}. {shuffledChoices[shuffledAnswer]}</strong>
                 </p>
                 {current.explanation && <p className="explanation">{current.explanation}</p>}
+                {(basisText || basisUrl) && (
+                  <div className="basis">
+                    <span className="basis-label">根拠</span>
+                    {basisText && <p className="basis-text">{basisText}</p>}
+                    {basisUrl && (
+                      <a
+                        className="btn btn-secondary basis-link"
+                        href={basisUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Icon name="open_in_new" size={16} />
+                        参考リンクを開く
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 

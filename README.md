@@ -49,13 +49,18 @@ npm run build
     "choices": ["選択肢1", "選択肢2", "選択肢3", "選択肢4"],
     "answer": 0,
     "category": "任意のカテゴリ名",
-    "explanation": "任意。不正解時に「答えを見る」で表示される解説"
+    "explanation": "任意。不正解時に「答えを見る」で表示される解説",
+    "basis": {
+      "url": "https://example.com/",
+      "text": "任意。根拠の説明文。「答えを見る」で表示される"
+    }
   }
 ]
 ```
 
 - `answer` は0始まり（0=選択肢1 〜 3=選択肢4）
-- `category` / `explanation` は省略可能
+- `category` / `explanation` / `basis` は省略可能
+- `basis.text` は根拠の説明文、`basis.url`（http/https）は参考リンクのジャンプボタンとして「答えを見る」に表示されます（どちらか一方だけでも可）
 - ユーザーが自分のJSONファイルをアプリ内からアップロードして遊ぶこともできます（ブラウザ内で処理、外部送信なし）
 
 ## 正答率の記録について
