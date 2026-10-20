@@ -5,17 +5,17 @@ import { recordAnswer, getStats, overallAccuracy, recentAccuracy } from '../util
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 
-function buildInitialQueue(questions, mode) {
-  const pool = shuffle(questions);
+function buildInitialQueue(questions, mode, order) {
+  const pool = order === 'sequential' ? [...questions] : shuffle(questions);
   if (mode === 10 || mode === 20) return pool.slice(0, mode);
   return pool; // 'all' or 'unlimited' — unlimited refills as it drains
 }
 
-export default function Quiz({ quiz, mode, onFinish, onExit }) {
+export default function Quiz({ quiz, mode, order = 'random', onFinish, onExit }) {
   const isUnlimited = mode === 'unlimited';
   const total = mode === 'all' || isUnlimited ? quiz.questions.length : mode;
 
-  const [queue, setQueue] = useState(() => buildInitialQueue(quiz.questions, mode));
+  const [queue, setQueue] = useState(() => buildInitialQueue(quiz.questions, mode, order));
   const [qIndex, setQIndex] = useState(0); // count of questions served so far
   const [current, setCurrent] = useState(() => queue[0]);
   const [selected, setSelected] = useState(null);
@@ -73,7 +73,7 @@ export default function Quiz({ quiz, mode, onFinish, onExit }) {
 
     let nextQueue = queue.slice(1);
     if (isUnlimited && nextQueue.length === 0) {
-      nextQueue = shuffle(quiz.questions);
+      nextQueue = order === 'sequential' ? [...quiz.questions] : shuffle(quiz.questions);
     }
     setQueue(nextQueue);
     setCurrent(nextQueue[0]);

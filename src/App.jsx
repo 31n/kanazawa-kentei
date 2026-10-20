@@ -9,6 +9,7 @@ export default function App() {
   const [screen, setScreen] = useState('home');
   const [quiz, setQuiz] = useState(null);
   const [mode, setMode] = useState(null);
+  const [order, setOrder] = useState('random');
   const [result, setResult] = useState(null);
   const [attempt, setAttempt] = useState(0);
 
@@ -17,8 +18,9 @@ export default function App() {
     setScreen('setup');
   }
 
-  function handleStart(selectedMode) {
+  function handleStart(selectedMode, selectedOrder) {
     setMode(selectedMode);
+    setOrder(selectedOrder);
     setAttempt((n) => n + 1);
     setScreen('quiz');
   }
@@ -69,9 +71,10 @@ export default function App() {
 
       {screen === 'quiz' && quiz && mode && (
         <Quiz
-          key={`${quiz.id}-${mode}-${attempt}`}
+          key={`${quiz.id}-${mode}-${order}-${attempt}`}
           quiz={quiz}
           mode={mode}
+          order={order}
           onFinish={handleFinish}
           onExit={handleExitQuiz}
         />
