@@ -2,8 +2,11 @@ import { useState } from 'react';
 import Icon from './Icon.jsx';
 import Explanation, { hasExplanation } from './Explanation.jsx';
 
+const LETTERS = ['A', 'B', 'C', 'D'];
+
 export default function QuestionList({ quiz, onBack }) {
   const [shownAnswers, setShownAnswers] = useState(() => new Set());
+  const [showChoices, setShowChoices] = useState(false);
   const [shownExplanations, setShownExplanations] = useState(() => new Set());
 
   function toggle(setter, index) {
@@ -28,6 +31,15 @@ export default function QuestionList({ quiz, onBack }) {
         <p className="hero-sub">回答はタップで表示されます。</p>
       </div>
 
+      <label className="check-row">
+        <input
+          type="checkbox"
+          checked={showChoices}
+          onChange={(e) => setShowChoices(e.target.checked)}
+        />
+        <span>選択肢表示モード</span>
+      </label>
+
       <ol className="question-list">
         {quiz.questions.map((q, i) => {
           const answerShown = shownAnswers.has(i);
@@ -37,6 +49,19 @@ export default function QuestionList({ quiz, onBack }) {
               <p className="question-item-text">
                 <span className="question-item-num">{i + 1}.</span> {q.question}
               </p>
+              {showChoices && (
+                <ul className="question-item-choices">
+                  {q.choices.map((choice, ci) => (
+                    <li
+                      key={ci}
+                      className={answerShown && ci === q.answer ? 'is-answer' : undefined}
+                    >
+                      <span className="choice-letter">{LETTERS[ci]}</span>
+                      <span>{choice}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
               <div className="question-item-answer-row">
                 <span className="question-item-label">回答:</span>
                 <button
