@@ -38,6 +38,8 @@ export default function Quiz({ quiz, mode, order = 'random', onFinish, onExit })
 
   const answered = selected !== null;
   const isCorrect = answered && selected === shuffledAnswer;
+  const hasDetail = Boolean(current.explanation || basisText || basisUrl);
+  const canReveal = answered && (!isCorrect || hasDetail);
 
   const sessionAccuracy = sessionAnswered ? sessionCorrect / sessionAnswered : null;
   const recentAcc = isUnlimited ? recentAccuracy(liveStats) : null;
@@ -165,17 +167,19 @@ export default function Quiz({ quiz, mode, order = 'random', onFinish, onExit })
               )}
             </div>
 
-            {!isCorrect && !revealed && (
+            {canReveal && !revealed && (
               <button className="btn btn-secondary reveal-btn" onClick={() => setRevealed(true)}>
                 <Icon name="visibility" size={18} />
-                答えを見る
+                {isCorrect ? '解説を見る' : '答えを見る'}
               </button>
             )}
-            {!isCorrect && revealed && (
+            {canReveal && revealed && (
               <div className="answer-reveal">
-                <p>
-                  正解は <strong>{LETTERS[shuffledAnswer]}. {shuffledChoices[shuffledAnswer]}</strong>
-                </p>
+                {!isCorrect && (
+                  <p>
+                    正解は <strong>{LETTERS[shuffledAnswer]}. {shuffledChoices[shuffledAnswer]}</strong>
+                  </p>
+                )}
                 {current.explanation && <p className="explanation">{current.explanation}</p>}
                 {(basisText || basisUrl) && (
                   <div className="basis">
